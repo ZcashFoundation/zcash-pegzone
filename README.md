@@ -18,7 +18,7 @@ identical amount of Cosmos-ZEC and send it to the specified Cosmos address.
 ## Cosmos-to-Zcash Peg
 
 Cosmos-ZEC holders create a transaction that specifies a z-addr and burns
-Cosmos-ZEC.  As the pegzone validators reach consensus on theCosmos-ZEC
+Cosmos-ZEC.  As the pegzone validators reach consensus on the Cosmos-ZEC
 transaction, they use distributed signing on the spend authorization key to
 prepare a Zcash transaction that releases the burned amount of ZEC to the
 z-addr specified in the Cosmos transaction.  
