@@ -88,7 +88,7 @@ represents an unstaked state of the staking token.
 SZEC can be converted to DZEC by delegating it with a validator, and DZEC can
 be converted to SZEC by removing it from delegation.  SZEC and DZEC are not
 exchanged at a 1:1 rate, but at a blockheight-dependent rate `D(h) <= 1` which
-measures the measures the cumulative depreciation of SZEC relative to DZEC from
+measures the cumulative depreciation of SZEC relative to DZEC from
 genesis to blockheight `h` and decreases monotonically in `h`.
 
 Delegating 1 SZEC at height `h_1` results in `D(h_1)` DZEC bonded to a
