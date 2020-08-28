@@ -72,14 +72,14 @@ pegzone has four parts: token design, the staking mechanics, the peg mechanics, 
 There are three token types involved:
 
 - `PZEC` tokens are backed 1:1 by `ZEC` held in the Zcash mainnet shielded pool. They are issued and redeemed for mainnet ZEC allowing users of either network to hold and transact shielded & ZEC-denominated value.
-- `DZEC` tokens represent delegated stake weight to validators and they determine the weight of the staking consensus mechanism while leaving the control of ownership, transfer, and delegation decoupled from stake weight.
-- `SZEC` tokens are the source of delegated weight, and SZEC owners can transfer them freely and/or delegate them to validators.
+- `DZEAL` tokens represent delegated stake weight to validators and they determine the weight of the staking consensus mechanism while leaving the control of ownership, transfer, and delegation decoupled from stake weight.
+- `ZEAL` tokens are the source of delegated weight, and ZEAL owners can transfer them freely and/or delegate them to validators.
 
 The exchange rates between token types are as follows:
 
 - Zcash mainnet `ZEC` and `PZEC` have a pegged exchange rate impacted by usage fees.
-- `DZEC` and `SZEC` have a pegged exchange rate impacted by fees and staking returns.
-- Any `ZEC` holder can transform their ZEC into SZEC with a one-way peg (a burn mechanism). However, the exchange rate between `ZEC` and `SZEC` is otherwise floating.
+- `DZEAL` and `ZEAL` have a pegged exchange rate impacted by fees and staking returns.
+- Any `ZEC` holder can transform their ZEC into ZEAL with a one-way peg (a burn mechanism). However, the exchange rate between `ZEC` and `ZEAL` is otherwise floating.
 
 ### Staking mechanics
 
@@ -87,38 +87,38 @@ As a proof-of-stake chain, the pegzone requires a staking token, and the
 pegzone must be able to control the supply of the staking token.
 
 However, rather than employ staking rewards as in the Cosmos Hub, we propose a
-new design based on a pair of tokens, “SZEC” and “DZEC”, with a predetermined,
+new design based on a pair of tokens, “ZEAL” and “DZEAL”, with a predetermined,
 time-varying exchange rate.  The key advantage of this mechanism is that it is
 future-compatible with shielded staking, by eliminating the requirement for
 delegators to claim rewards.
 
-The staking token is a new token called SZEC.  SZEC is obtained at a 1:1 ratio
+The staking token is a new token called ZEAL.  ZEAL is obtained at a 1:1 ratio
 by burning ZEC on the Zcash chain.  This avoids distributional issues about the
 initial holders of the staking token: all ZEC holders have the option to obtain
-SZEC if they choose to do so.  SZEC is always freely transferable, as it
+ZEAL if they choose to do so.  ZEAL is always freely transferable, as it
 represents an unstaked state of the staking token.
 
-SZEC can be converted to DZEC by delegating it with a validator, and DZEC can
-be converted to SZEC by removing it from delegation.  SZEC and DZEC are not
+ZEAL can be converted to DZEAL by delegating it with a validator, and DZEAL can
+be converted to ZEAL by removing it from delegation.  ZEAL and DZEAL are not
 exchanged at a 1:1 rate, but at a blockheight-dependent rate `D(h) <= 1` which
-measures the cumulative depreciation of SZEC relative to DZEC from
+measures the cumulative depreciation of ZEAL relative to DZEAL from
 genesis to blockheight `h` and decreases monotonically in `h`.
 
-Delegating 1 SZEC at height `h_1` results in `D(h_1)` DZEC bonded to a
-particular validator.  Undelegating 1 DZEC at height `h_2` results in
-`1/D(h_2)` SZEC.  This transaction is only settled after some unbonding period,
-during which the DZEC may still be slashed in the event of validator
+Delegating 1 ZEAL at height `h_1` results in `D(h_1)` DZEAL bonded to a
+particular validator.  Undelegating 1 DZEAL at height `h_2` results in
+`1/D(h_2)` ZEAL.  This transaction is only settled after some unbonding period,
+during which the DZEAL may still be slashed in the event of validator
 misbehavior.
 
-This can be thought of as treating all DZEC as if it had been delegated since
+This can be thought of as treating all DZEAL as if it had been delegated since
 (pegzone) genesis, and pre-debiting the staking rewards over the period before
 they began delegation, so that when they undelegate, they receive rewards only
-over the delegation period.  Crucially, this means that all DZEC is fungible up
+over the delegation period.  Crucially, this means that all DZEAL is fungible up
 to the choice of validator, because there is no need to track how long
-particular DZEC has been delegated.
+particular DZEAL has been delegated.
 
 This is economically equivalent to staking rewards as used on the Cosmos Hub,
-but because the staking reward is instead priced in to the SZEC/DZEC exchange
+but because the staking reward is instead priced in to the ZEAL/DZEAL exchange
 rate, there is no requirement for delegators to claim rewards, and all
 delegators are rewarded at the same rate (e.g., there is no question about the
 compounding interval).  Removing staking rewards makes it relatively easy to
@@ -226,12 +226,12 @@ publicly-visible stake weight, but unlike on the Cosmos Hub, the identities of
 their delegators and the distribution of delegators to each validator will be
 protected.  Validators can be pseudonymous, if there is market demand for
 pseudonymous validators – no strong identity is required.  The shielding design
-follows straightforwardly from the SZEC/DZEC design, which ensures that all
-DZEC staked with the same validator is fungible.  
+follows straightforwardly from the ZEAL/DZEAL design, which ensures that all
+DZEAL staked with the same validator is fungible.  
 
-The pegzone has a main multi-asset shielded pool for SZEC and any other IBC
+The pegzone has a main multi-asset shielded pool for ZEAL and any other IBC
 assets moved into the shielded zone, as well as a single-asset shielded
-delegation pool for each validator's DZEC.  Delegation transactions move SZEC
+delegation pool for each validator's DZEAL.  Delegation transactions move ZEAL
 from the main shielded pool into the validator's delegation pool, escrowing the
 portion of the delegated funds that will be slashed in case of validator
 misbehavior.  A user can undelegate their funds by moving funds back to the
