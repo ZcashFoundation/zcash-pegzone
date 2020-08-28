@@ -65,8 +65,21 @@ Zcash chain.
 ## Phase 1 mechanism design
 
 The pegzone will be a proof-of-stake chain.  The mechanism design for the
-pegzone has three parts: the staking mechanics, the peg mechanics, and the fee
-mechanics.
+pegzone has four parts: token design, the staking mechanics, the peg mechanics, and the fee mechanics.
+
+### Token Design
+
+There are three token types involved:
+
+- `PZEC` tokens are backed 1:1 by `ZEC` held in the Zcash mainnet shielded pool. They are issued and redeemed for mainnet ZEC allowing users of either network to hold and transact shielded & ZEC-denominated value.
+- `DZEC` tokens represent delegated stake weight to validators and they determine the weight of the staking consensus mechanism while leaving the control of ownership, transfer, and delegation decoupled from stake weight.
+- `SZEC` tokens are the source of delegated weight, and SZEC owners can transfer them freely and/or delegate them to validators.
+
+The exchange rates between token types are as follows:
+
+- Zcash mainnet `ZEC` and `PZEC` have a pegged exchange rate impacted by usage fees.
+- `DZEC` and `SZEC` have a pegged exchange rate impacted by fees and staking returns.
+- Any `ZEC` holder can transform their ZEC into SZEC with a one-way peg (a burn mechanism). However, the exchange rate between `ZEC` and `SZEC` is otherwise floating.
 
 ### Staking mechanics
 
